@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table>
+		<tr>
+			<th>Country</th>
+			<th>Cases</th>
+		</tr>
+		
+		<tr th:each="locationStat : ${locationStats}">
+			<td th:text="${locationStat.country}">Country</td>
+			<td th:text="${locationStat.totalCases}">Country</td>
+		</tr>
+
+	</table>
+
+</body>
+</html>
