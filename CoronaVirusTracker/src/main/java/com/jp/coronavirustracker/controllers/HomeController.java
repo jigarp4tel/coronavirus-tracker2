@@ -9,18 +9,17 @@ import com.jp.coronavirustracker.services.CoronaVirusDataService;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private CoronaVirusDataService coronaVirusDataService;
 
-	
 	@GetMapping("/")
 	public String getStats(Model model) {
-		
+
 		model.addAttribute("locationStats", coronaVirusDataService.getLocationStatsList());
-		
+		model.addAttribute("allStats", coronaVirusDataService.getAllStats());
+
 		return "home";
 	}
-	
-	
+
 }

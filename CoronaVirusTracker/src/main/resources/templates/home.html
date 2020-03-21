@@ -1,23 +1,66 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<title>Coronavirus Tracker</title>
 </head>
 <body>
 
-	<table>
-		<tr>
-			<th>Country</th>
-			<th>Cases</th>
-		</tr>
-		
-		<tr th:each="locationStat : ${locationStats}">
-			<td th:text="${locationStat.country}">Country</td>
-			<td th:text="${locationStat.totalCases}">Country</td>
-		</tr>
+	<div class="container">
+		<div class="jumbotron">
+			<div class="row" th:each="allStat : ${allStats}">
+				<div class="col">
+					<h1 class="display-4" th:text="${allStat.cases}"></h1>
+					<p class="lead">Cases</p>
+				</div>
+				<div class="col">
+					<h1 class="display-4" th:text="${allStat.deaths}"></h1>
+					<p class="lead">Deaths</p>
+				</div>
+				<div class="col">
+					<h1 class="display-4" th:text="${allStat.recovered}"></h1>
+					<p class="lead">Recovered</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	</table>
+	<div class="container">
+		<table class="table table-hover table-bordered ">
 
+			<thead class="thead-dark">
+				<tr>
+					<th>Country</th>
+					<th>Total Cases</th>
+					<th>New Cases</th>
+					<th>New Deaths</th>
+					<th>Total Deaths</th>
+					<th>Total Recovered</th>
+					<th>Critical</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="locationStat : ${locationStats}">
+					<td th:text="${locationStat.country}">Country</td>
+					<td th:text="${locationStat.totalCases}">Total Cases</td>
+					<td th:text="${locationStat.todayCases}">New Cases</td>
+					<td th:text="${locationStat.deaths}">New Deaths</td>
+					<td th:text="${locationStat.todayDeaths}">Total Deaths</td>
+					<td th:text="${locationStat.recovered}">Total Recovered</td>
+					<td th:text="${locationStat.critical}">Critical</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
+
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
 </html>
