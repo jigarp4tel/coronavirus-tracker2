@@ -1,5 +1,7 @@
 package com.jp.coronavirustracker.models;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,6 +16,9 @@ public class AllStats {
 	
 	@JsonProperty("recovered")
 	private int recovered;
+	
+	@JsonProperty("updated")
+	private Date dateUpdated;
 
 	public int getCases() {
 		return cases;
@@ -39,10 +44,23 @@ public class AllStats {
 		this.recovered = recovered;
 	}
 
+	public Date getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(long timeStamp) {
+		
+		this.dateUpdated = new Date(timeStamp);
+	}
+
 	@Override
 	public String toString() {
-		return "AllStats [cases=" + cases + ", deaths=" + deaths + ", recovered=" + recovered + "]";
+		return "AllStats [cases=" + cases + ", deaths=" + deaths + ", recovered=" + recovered + ", dateUpdated="
+				+ dateUpdated + "]";
 	}
+
+	
+	
 	
 
 }

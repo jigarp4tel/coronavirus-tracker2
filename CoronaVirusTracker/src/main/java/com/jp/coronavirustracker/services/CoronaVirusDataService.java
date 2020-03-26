@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -22,7 +23,6 @@ import com.jp.coronavirustracker.models.LocationStats;
 @Service
 public class CoronaVirusDataService {
 
-	
 	private static final String DATA_URL = "https://corona.lmao.ninja";
 	private RestTemplate restTemplate = new RestTemplate();
 	private List<LocationStats> locationStatsList = new ArrayList<LocationStats>();
@@ -31,7 +31,6 @@ public class CoronaVirusDataService {
 	public void fetchVirusData() throws IOException, InterruptedException {
 
 		HttpClient client = HttpClient.newHttpClient();
-
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(DATA_URL + "/countries")).build();
 
 		HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -43,21 +42,35 @@ public class CoronaVirusDataService {
 
 		try {
 			newStats = Arrays.asList(mapper.readValue(statsJsonReader, LocationStats[].class));
-
-			System.out.println(newStats);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		setLocationStatsList(newStats);
+
 	}
 
 	public List<AllStats> getAllStats() {
 
 		List<AllStats> newStats = Arrays.asList(restTemplate.getForObject(DATA_URL + "/all", AllStats.class));
-
 		return newStats;
+
+	}
+
+	public List<LocationStats> getCountryStats(String country) {
+
+		List<LocationStats> countryStats;
+
+		if (country == null || country.equals("")) {
+			countryStats = getLocationStatsList();
+
+		} else {
+			countryStats = Arrays
+					.asList(restTemplate.getForObject(DATA_URL + "/countries/" + country, LocationStats.class));
+		}
+
+		return countryStats;
 
 	}
 
