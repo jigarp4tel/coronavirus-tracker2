@@ -10,9 +10,11 @@
 </head>
 <body>
 
-	<div class="container">
-		<div class="jumbotron">
-			<div class="row" th:each="allStat : ${allStats}">
+	<div class="container"  th:each="allStat : ${allStats}">
+		<div class="jumbotron mt-4 bg-dark text-light">
+		<h1 class="text-center">Coronavirus Tracker</h1>
+		<p class = "text-right font-weight-light" th:text="'Last Updated: ' + ${allStat.dateUpdated}"></p>
+			<div class="row">
 				<div class="col">
 					<h1 class="display-4" th:text="${allStat.cases}"></h1>
 					<p class="lead">Cases</p>
@@ -26,6 +28,7 @@
 					<p class="lead">Recovered</p>
 				</div>
 			</div>
+			
 		</div>
 	</div>
 	
